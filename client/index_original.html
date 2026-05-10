@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wikipedia Game</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <h1>Wikipedia Game</h1>
+    Enter a start page such as <a href="https://en.wikipedia.org/wiki/Martin_Wirsing">https://en.wikipedia.org/wiki/Martin_Wirsing</a> and a finish page such as <a href="https://en.wikipedia.org/wiki/David_Hilbert">https://en.wikipedia.org/wiki/David_Hilbert</a> and click "Find Path" to find the shortest path between the two pages. WARNING: This is a simple breadth-first search that has been tested only for paths no longer than 2.<br><br>
+    <form id="wiki-form">
+        <label for="start-page">Start Page URL:</label><br>
+            <input type="url" id="start-page" name="start-page" pattern="https?://.*\.wikipedia\.org/.*" 
+                required style="width: 80%;" value="https://en.wikipedia.org/wiki/Martin_Wirsing"><br>
+        <label for="finish-page">Finish Page URL:</label><br>
+            <input type="url" id="finish-page" name="finish-page" pattern="https?://.*\.wikipedia\.org/.*" 
+                required style="width: 80%;" value="https://en.wikipedia.org/wiki/David_Hilbert"><br>
+        <input type="submit" value="Find Path">
+    </form>
+    <div id="path"></div>
+    <div id="logs" style="width: 80%; height: 200px; overflow: auto; border: 1px solid black; margin-top: 20px;"></div>
+    <div id="stats" style="width: 80%; margin-top: 20px;"></div>
+    <script src="/static/main.js?v=3"></script>
+
+    <div>
+        <p>
+            <a href="https://github.com/alexhkurz/WikipediaGame" target="_blank">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" width="20" height="20"></a>
+        </p>
+    </div>
+
+</body>
+</html>

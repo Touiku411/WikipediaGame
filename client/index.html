@@ -1,32 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-    <title>Wikipedia Game</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>維基百科最強大腦 🧠</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+            text-align: center;
+        }
+        h1 { color: #2c3e50; }
+        
+        /* 超大顆的挑戰按鈕 */
+        #play-btn {
+            font-size: 24px;
+            padding: 15px 40px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            margin: 20px 0;
+        }
+        #play-btn:hover { background-color: #2980b9; transform: scale(1.05); }
+        #play-btn:disabled { background-color: #95a5a6; cursor: not-allowed; transform: none; }
+
+        /* 結果顯示區塊 (預設隱藏) */
+        #result-container {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .puzzle-header {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #e8f8f5;
+            padding: 15px;
+            border-radius: 10px;
+            color: #16a085;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* 載入中的動畫文字 */
+        #loading {
+            display: none;
+            font-size: 18px;
+            color: #7f8c8d;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-    <h1>Wikipedia Game</h1>
-    Enter a start page such as <a href="https://en.wikipedia.org/wiki/Martin_Wirsing">https://en.wikipedia.org/wiki/Martin_Wirsing</a> and a finish page such as <a href="https://en.wikipedia.org/wiki/David_Hilbert">https://en.wikipedia.org/wiki/David_Hilbert</a> and click "Find Path" to find the shortest path between the two pages. WARNING: This is a simple breadth-first search that has been tested only for paths no longer than 2.<br><br>
-    <form id="wiki-form">
-        <label for="start-page">Start Page URL:</label><br>
-            <input type="url" id="start-page" name="start-page" pattern="https?://.*\.wikipedia\.org/.*" 
-                required style="width: 80%;" value="https://en.wikipedia.org/wiki/Martin_Wirsing"><br>
-        <label for="finish-page">Finish Page URL:</label><br>
-            <input type="url" id="finish-page" name="finish-page" pattern="https?://.*\.wikipedia\.org/.*" 
-                required style="width: 80%;" value="https://en.wikipedia.org/wiki/David_Hilbert"><br>
-        <input type="submit" value="Find Path">
-    </form>
-    <div id="path"></div>
-    <div id="logs" style="width: 80%; height: 200px; overflow: auto; border: 1px solid black; margin-top: 20px;"></div>
-    <div id="stats" style="width: 80%; margin-top: 20px;"></div>
-    <script src="/static/main.js?v=3"></script>
 
-    <div>
-        <p>
-            <a href="https://github.com/alexhkurz/WikipediaGame" target="_blank">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" width="20" height="20"></a>
-        </p>
+    <h1>🧠 維基百科最強大腦</h1>
+    <p>點擊下方按鈕，看演算法如何在一瞬間找到兩個隨機頁面之間的最短捷徑！</p>
+
+    <!-- 唯一的按鈕 -->
+    <button id="play-btn">🎲 一鍵隨機挑戰！</button>
+
+    <!-- 載入狀態 -->
+    <div id="loading">🚀 演算法正在維基百科的宇宙中狂奔，請稍候...</div>
+
+    <!-- 結果顯示區 -->
+    <div id="result-container">
+        <div class="puzzle-header">
+            <h3>🎯 挑戰題目</h3>
+            <p>🟢 起點：<a id="res-start" target="_blank"></a></p>
+            <p>🔴 終點：<a id="res-target" target="_blank"></a></p>
+        </div>
+
+        <div class="stats">
+            <span id="res-time">⏱️ 耗時: 0 秒</span>
+            <span id="res-discovered">👁️ 探索頁面: 0 個</span>
+            <span id="res-depth">📏 總步數: 0 步</span>
+        </div>
+
+        <h3>🗺️ 演算法找出的捷徑：</h3>
+        <ol id="res-path" style="line-height: 1.8; font-size: 18px;"></ol>
     </div>
-
+    <script src="/static/script.js?v=1"></script>
 </body>
 </html>

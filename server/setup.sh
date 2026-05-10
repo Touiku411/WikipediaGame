@@ -8,7 +8,7 @@ fi
 python3.10 -m venv .venv
 
 # Activate the virtual environment
-source venv/bin/activate
+source .venv/bin/activate.fish
 
 # Install the dependencies
 pip install -r requirements.txt
